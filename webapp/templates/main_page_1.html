@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TaskManager - Дашборд</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f4f7fa;
+    }
+
+    .container {
+      display: flex;
+      flex-direction: column;
+      padding: 20px;
+      max-width: 1200px;
+      margin: 0 auto;
+      background-color: #fff;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 0;
+      border-bottom: 2px solid #eee;
+    }
+
+    header h1 {
+      font-size: 24px;
+      color: #333;
+    }
+
+    .main-content {
+      display: flex;
+      flex-direction: row;
+      gap: 20px;
+      margin-top: 20px;
+    }
+
+    .calendar {
+      flex: 1;
+      background-color: #fafafa;
+      border-radius: 8px;
+      padding: 20px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+    }
+
+    .calendar h3 {
+      font-size: 18px;
+      margin-bottom: 10px;
+      color: #333;
+    }
+
+    .calendar .date-grid {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 10px;
+    }
+
+    .calendar .date {
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: #fff;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    .calendar .date:hover {
+      background-color: #007bff;
+      color: white;
+    }
+
+    .tasks {
+      flex: 1.5;
+      background-color: #fafafa;
+      border-radius: 8px;
+      padding: 20px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+    }
+
+    .tasks h3 {
+      font-size: 18px;
+      margin-bottom: 10px;
+      color: #333;
+    }
+
+    .task-list {
+      list-style: none;
+      padding: 0;
+    }
+
+    .task-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background-color: #fff;
+      padding: 15px;
+      margin-bottom: 10px;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    .task-item .task-name {
+      font-size: 16px;
+      font-weight: 600;
+      color: #333;
+    }
+
+    .task-item .task-due-date {
+      font-size: 14px;
+      color: #666;
+    }
+
+    .task-item .task-priority {
+      font-size: 14px;
+      color: #fff;
+      padding: 5px 10px;
+      border-radius: 5px;
+    }
+
+    .task-item .high {
+      background-color: #e74c3c;
+    }
+
+    .task-item .medium {
+      background-color: #f39c12;
+    }
+
+    .task-item .low {
+      background-color: #2ecc71;
+    }
+
+    .actions {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 30px;
+    }
+
+    .button {
+      background-color: #007bff;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 16px;
+      transition: background-color 0.3s;
+    }
+
+    .button:hover {
+      background-color: #0056b3;
+    }
+
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <header>
+      <h1>TaskManager</h1>
+      <div>Добро пожаловать, Иван!</div>
+    </header>
+
+    <div class="main-content">
+      <!-- Календарь -->
+      <div class="calendar">
+        <h3>Календарь</h3>
+        <div class="date-grid">
+          <div class="date">1</div>
+          <div class="date">2</div>
+          <div class="date">3</div>
+          <div class="date">4</div>
+          <div class="date">5</div>
+          <div class="date">6</div>
+          <div class="date">7</div>
+          <div class="date">8</div>
+          <div class="date">9</div>
+          <div class="date">10</div>
+          <div class="date">11</div>
+          <div class="date">12</div>
+          <div class="date">13</div>
+          <div class="date">14</div>
+          <div class="date">15</div>
+          <div class="date">16</div>
+          <div class="date">17</div>
+          <div class="date">18</div>
+          <div class="date">19</div>
+          <div class="date">20</div>
+          <div class="date">21</div>
+          <div class="date">22</div>
+          <div class="date">23</div>
+          <div class="date">24</div>
+          <div class="date">25</div>
+          <div class="date">26</div>
+          <div class="date">27</div>
+          <div class="date">28</div>
+        </div>
+      </div>
+
+      <!-- Задачи -->
+      <div class="tasks">
+        <h3>Задачи на сегодня</h3>
+        <ul class="task-list">
+          <li class="task-item">
+            <div>
+              <div class="task-name">Задача 1</div>
+              <div class="task-due-date">Срок: Сегодня</div>
+            </div>
+            <div class="task-priority high">Высокий</div>
+          </li>
+          <li class="task-item">
+            <div>
+              <div class="task-name">Задача 2</div>
+              <div class="task-due-date">Срок: Сегодня</div>
+            </div>
+            <div class="task-priority medium">Средний</div>
+          </li>
+          <li class="task-item">
+            <div>
+              <div class="task-name">Задача 3</div>
+              <div class="task-due-date">Срок: Сегодня</div>
+            </div>
+            <div class="task-priority low">Низкий</div>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="actions">
+      <button class="button">Добавить задачу</button>
+      <button class="button">Просмотреть все задачи</button>
+    </div>
+  </div>
+
+</body>
+</html>

@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task Manager</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .container {
+            background: white;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            width: 300px;
+            text-align: center;
+        }
+        h1 {
+            margin-bottom: 20px;
+        }
+        form {
+            display: flex;
+            gap: 10px;
+        }
+        input {
+            flex: 1;
+            padding: 8px;
+        }
+        button {
+            padding: 8px 12px;
+            background: #28a745;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+        ul {
+            list-style: none;
+            padding: 0;
+            margin-top: 20px;
+        }
+        li {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px;
+            background: #f9f9f9;
+            margin-bottom: 5px;
+            border-radius: 4px;
+        }
+        .completed {
+            text-decoration: line-through;
+            color: gray;
+        }
+        a {
+            text-decoration: none;
+            color: red;
+            margin-left: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Task Manager</h1>
+        <form action="/add" method="post">
+            <input type="text" name="title" placeholder="Enter new task" required>
+            <button type="submit">Add Task</button>
+        </form>
+        <ul>
+            {% for task in tasks %}
+                <li class="{% if task.done %}completed{% endif %}">
+                    {{ task.title }}
+                    <a href="/toggle/{{ task.id }}">✔</a>
+                    <a href="/delete/{{ task.id }}">❌</a>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+    <script>
+        document.querySelectorAll('li').forEach(item => {
+            item.addEventListener('click', () => {
+                item.classList.toggle('completed');
+            });
+        });
+    </script>
+</body>
+</html>
