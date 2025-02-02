@@ -48,12 +48,38 @@
       margin-top: 20px;
     }
 
-    .calendar, .tasks {
-      flex: 1;
+    .calendar,
+    .tasks {
+      flex: 1; /* Делаем оба блока равными по ширине */
       background: #f9f9f9;
       padding: 20px;
       border-radius: 12px;
       box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+      height: 420px; /* Устанавливаем фиксированную высоту */
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .calendar-header,
+    .tasks-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 15px;
+    }
+
+    .week-number {
+      font-weight: 600;
+      font-size: 14px;
+    }
+
+    .days-row {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      font-weight: 600;
+      margin-bottom: 10px;
+      text-align: center;
     }
 
     .date-grid {
@@ -63,12 +89,18 @@
       text-align: center;
     }
 
-    .days-row {
-      display: grid;
-      grid-template-columns: repeat(7, 1fr);
-      font-weight: 600;
-      margin-bottom: 10px;
-      text-align: center;
+    .date:nth-child(even) {
+      background: #ffebee;
+    }
+
+    .date:nth-child(odd) {
+      background: #e3f2fd;
+    }
+
+    .date.today {
+      background: #ff9800;
+      color: white;
+      font-weight: bold;
     }
 
     .date {
@@ -82,6 +114,7 @@
       cursor: pointer;
       transition: 0.3s;
       font-weight: 600;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     }
 
     .date:hover {
@@ -92,6 +125,20 @@
     .task-list {
       list-style: none;
       padding: 0;
+      margin: 0;
+      flex-grow: 1; /* Заставляем список задач занимать оставшееся место */
+      overflow-y: auto; /* Сохраняем возможность прокрутки */
+    }
+
+    /* Скрытие видимой полосы прокрутки */
+    .task-list::-webkit-scrollbar {
+      width: 0;
+      height: 0;
+    }
+
+    /* Firefox скрытие полосы прокрутки */
+    .task-list {
+      scrollbar-width: none;
     }
 
     .task-item {
@@ -116,9 +163,17 @@
       color: white;
     }
 
-    .high { background: #e74c3c; }
-    .medium { background: #f39c12; }
-    .low { background: #2ecc71; }
+    .high {
+      background: #e74c3c;
+    }
+
+    .medium {
+      background: #f39c12;
+    }
+
+    .low {
+      background: #2ecc71;
+    }
 
     .actions {
       display: flex;
@@ -141,6 +196,16 @@
     .button:hover {
       background: #0056b3;
     }
+
+    .tasks-header h3 {
+      margin: 0;
+      padding: 0;
+      color: #333;
+      font-size: 20px;
+      font-weight: 400;
+      text-align: right;
+      margin-right: 15px;
+    }
   </style>
 </head>
 <body>
@@ -155,6 +220,10 @@
 
     <div class="main-content">
       <div class="calendar">
+        <div class="calendar-header">
+          <div class="week-number">Неделя: 5</div>
+          <div>Февраль 2025</div>
+        </div>
         <div class="days-row">
           <div>Пн</div>
           <div>Вт</div>
@@ -167,16 +236,41 @@
         <div class="date-grid">
           <div class="date">1</div>
           <div class="date">2</div>
-          <div class="date">3</div>
+          <div class="date today">3</div>
           <div class="date">4</div>
           <div class="date">5</div>
           <div class="date">6</div>
           <div class="date">7</div>
+          <div class="date">8</div>
+          <div class="date">9</div>
+          <div class="date">10</div>
+          <div class="date">11</div>
+          <div class="date">12</div>
+          <div class="date">13</div>
+          <div class="date">14</div>
+          <div class="date">15</div>
+          <div class="date">16</div>
+          <div class="date">17</div>
+          <div class="date">18</div>
+          <div class="date">19</div>
+          <div class="date">20</div>
+          <div class="date">21</div>
+          <div class="date">22</div>
+          <div class="date">23</div>
+          <div class="date">24</div>
+          <div class="date">25</div>
+          <div class="date">26</div>
+          <div class="date">27</div>
+          <div class="date">28</div>
+          <div class="date">29</div>
+          <div class="date">30</div>
         </div>
       </div>
 
       <div class="tasks">
-        <h3>Задачи на сегодня</h3>
+        <div class="tasks-header">
+          <h3>Задачи на сегодня</h3>
+        </div>
         <ul class="task-list">
           <li class="task-item">
             <div>
@@ -196,6 +290,27 @@
             <div>
               <div class="task-name">Задача 3</div>
               <div class="task-due-date">Срок: Сегодня</div>
+            </div>
+            <div class="task-priority low">Низкий</div>
+          </li>
+          <li class="task-item">
+            <div>
+              <div class="task-name">Задача 4</div>
+              <div class="task-due-date">Срок: Завтра</div>
+            </div>
+            <div class="task-priority high">Высокий</div>
+          </li>
+          <li class="task-item">
+            <div>
+              <div class="task-name">Задача 5</div>
+              <div class="task-due-date">Срок: В понедельник</div>
+            </div>
+            <div class="task-priority medium">Средний</div>
+          </li>
+          <li class="task-item">
+            <div>
+              <div class="task-name">Задача 6</div>
+              <div class="task-due-date">Срок: Вторник</div>
             </div>
             <div class="task-priority low">Низкий</div>
           </li>

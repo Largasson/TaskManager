@@ -56,6 +56,14 @@
       box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
     }
 
+    .days-row {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      font-weight: 600;
+      margin-bottom: 10px;
+      text-align: center;
+    }
+
     .date-grid {
       display: grid;
       grid-template-columns: repeat(7, 1fr);
@@ -63,12 +71,13 @@
       text-align: center;
     }
 
-    .days-row {
-      display: grid;
-      grid-template-columns: repeat(7, 1fr);
-      font-weight: 600;
-      margin-bottom: 10px;
-      text-align: center;
+    /* Стили для четных и нечетных дат */
+    .date:nth-child(even) {
+      background: #ffebee;
+    }
+
+    .date:nth-child(odd) {
+      background: #e3f2fd;
     }
 
     .date {
@@ -82,6 +91,7 @@
       cursor: pointer;
       transition: 0.3s;
       font-weight: 600;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     }
 
     .date:hover {
@@ -172,6 +182,30 @@
           <div class="date">5</div>
           <div class="date">6</div>
           <div class="date">7</div>
+          <div class="date">8</div>
+          <div class="date">9</div>
+          <div class="date">10</div>
+          <div class="date">11</div>
+          <div class="date">12</div>
+          <div class="date">13</div>
+          <div class="date">14</div>
+          <div class="date">15</div>
+          <div class="date">16</div>
+          <div class="date">17</div>
+          <div class="date">18</div>
+          <div class="date">19</div>
+          <div class="date">20</div>
+          <div class="date">21</div>
+          <div class="date">22</div>
+          <div class="date">23</div>
+          <div class="date">24</div>
+          <div class="date">25</div>
+          <div class="date">26</div>
+          <div class="date">27</div>
+          <div class="date">28</div>
+          <div class="date">29</div>
+          <div class="date">30</div>
+          <div class="date">31</div>
         </div>
       </div>
 
