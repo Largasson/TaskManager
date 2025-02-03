@@ -48,16 +48,21 @@
       margin-top: 20px;
     }
 
-    .calendar, .tasks {
-      flex: 1;
+    .calendar,
+    .tasks {
+      flex: 1; /* Делаем оба блока равными по ширине */
       background: #f9f9f9;
       padding: 20px;
       border-radius: 12px;
       box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-      height: calc(100% - 40px); /* Уменьшили блоки по высоте на 10% */
+      height: 420px; /* Устанавливаем фиксированную высоту */
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
     }
 
-    .calendar-header, .tasks-header {
+    .calendar-header,
+    .tasks-header {
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -79,9 +84,16 @@
 
     .date-grid {
       display: grid;
-      grid-template-columns: repeat(7, 1fr);
+      grid-template-columns: repeat(7, 1fr); /* Неизменно: 7 колонок */
+      grid-template-rows: repeat(6, 1fr); /* Гарантировано ровные 6 строк */
       gap: 10px;
       text-align: center;
+    }
+
+    .date.today {
+      background: #ff9800;
+      color: white;
+      font-weight: bold;
     }
 
     .date:nth-child(even) {
@@ -120,24 +132,20 @@
     .task-list {
       list-style: none;
       padding: 0;
-      max-height: 360px; /* Уменьшили высоту для задач */
-      overflow-y: auto;
-      margin-bottom: 0;
-      scrollbar-width: thin;
-      scrollbar-color: #007bff #f1f1f1;
+      margin: 0;
+      flex-grow: 1; /* Заставляем список задач занимать оставшееся место */
+      overflow-y: auto; /* Сохраняем возможность прокрутки */
     }
 
+    /* Скрытие видимой полосы прокрутки */
     .task-list::-webkit-scrollbar {
-      width: 6px;
+      width: 0;
+      height: 0;
     }
 
-    .task-list::-webkit-scrollbar-thumb {
-      background-color: #007bff;
-      border-radius: 10px;
-    }
-
-    .task-list::-webkit-scrollbar-track {
-      background-color: #f1f1f1;
+    /* Firefox скрытие полосы прокрутки */
+    .task-list {
+      scrollbar-width: none;
     }
 
     .task-item {
@@ -162,9 +170,17 @@
       color: white;
     }
 
-    .high { background: #e74c3c; }
-    .medium { background: #f39c12; }
-    .low { background: #2ecc71; }
+    .high {
+      background: #e74c3c;
+    }
+
+    .medium {
+      background: #f39c12;
+    }
+
+    .low {
+      background: #2ecc71;
+    }
 
     .actions {
       display: flex;
@@ -192,17 +208,10 @@
       margin: 0;
       padding: 0;
       color: #333;
-      font-size: 20px; /* Размер шрифта такой же, как и у месяца */
-      font-weight: 400; /* Убрали жирный шрифт */
+      font-size: 20px;
+      font-weight: 400;
       text-align: right;
       margin-right: 15px;
-    }
-
-    .tasks-header {
-      display: flex;
-      justify-content: flex-end;
-      align-items: center;
-      margin-bottom: 15px;
     }
   </style>
 </head>
@@ -219,8 +228,8 @@
     <div class="main-content">
       <div class="calendar">
         <div class="calendar-header">
-          <div class="week-number">Неделя: 5</div>
-          <div>Февраль 2025</div>
+          <div class="week-number">Неделя: {{ week_number }}</div>
+          <div>{{ month }} {{ year }}</div>
         </div>
         <div class="days-row">
           <div>Пн</div>
@@ -232,36 +241,11 @@
           <div>Вс</div>
         </div>
         <div class="date-grid">
-          <div class="date">1</div>
-          <div class="date">2</div>
-          <div class="date today">3</div>
-          <div class="date">4</div>
-          <div class="date">5</div>
-          <div class="date">6</div>
-          <div class="date">7</div>
-          <div class="date">8</div>
-          <div class="date">9</div>
-          <div class="date">10</div>
-          <div class="date">11</div>
-          <div class="date">12</div>
-          <div class="date">13</div>
-          <div class="date">14</div>
-          <div class="date">15</div>
-          <div class="date">16</div>
-          <div class="date">17</div>
-          <div class="date">18</div>
-          <div class="date">19</div>
-          <div class="date">20</div>
-          <div class="date">21</div>
-          <div class="date">22</div>
-          <div class="date">23</div>
-          <div class="date">24</div>
-          <div class="date">25</div>
-          <div class="date">26</div>
-          <div class="date">27</div>
-          <div class="date">28</div>
-          <div class="date">29</div>
-          <div class="date">30</div>
+
+          {% for day in range(1, days_in_month+1) %}
+            <div class="date {% if day == current_day %}today{% endif %}">{{ day }}</div>
+          {% endfor %}
+
         </div>
       </div>
 
@@ -272,46 +256,31 @@
         <ul class="task-list">
           <li class="task-item">
             <div>
-              <div class="task-name">Задача 1</div>
+              <div class="task-name">Выспаться</div>
               <div class="task-due-date">Срок: Сегодня</div>
             </div>
             <div class="task-priority high">Высокий</div>
           </li>
           <li class="task-item">
             <div>
-              <div class="task-name">Задача 2</div>
+              <div class="task-name">Погулять</div>
               <div class="task-due-date">Срок: Сегодня</div>
             </div>
             <div class="task-priority medium">Средний</div>
           </li>
           <li class="task-item">
             <div>
-              <div class="task-name">Задача 3</div>
+              <div class="task-name">Отдохнуть</div>
               <div class="task-due-date">Срок: Сегодня</div>
             </div>
-            <div class="task-priority low">Низкий</div>
+            <div class="task-priority low">Средний</div>
           </li>
           <li class="task-item">
             <div>
-              <div class="task-name">Задача 4</div>
-              <div class="task-due-date">Срок: Завтра</div>
+              <div class="task-name">Провести время с семьей</div>
+              <div class="task-due-date">Срок: Сегодня</div>
             </div>
             <div class="task-priority high">Высокий</div>
-          </li>
-          <!-- Новые задачи -->
-          <li class="task-item">
-            <div>
-              <div class="task-name">Задача 5</div>
-              <div class="task-due-date">Срок: В понедельник</div>
-            </div>
-            <div class="task-priority medium">Средний</div>
-          </li>
-          <li class="task-item">
-            <div>
-              <div class="task-name">Задача 6</div>
-              <div class="task-due-date">Срок: Вторник</div>
-            </div>
-            <div class="task-priority low">Низкий</div>
           </li>
         </ul>
       </div>
